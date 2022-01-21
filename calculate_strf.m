@@ -89,22 +89,22 @@ if ~isfield(spk, 'spiketimes')
     spk = spk.spk;
 end
 
-
+strf = struct([]);
 for i = 1:length(spk)
-    fprintf('Processing neuron #%d\n', i)
+   fprintf('Processing neuron #%d\n', i)
    sp = spk(i).spiketimes;
    spet = round(sp / 1000 * double(fs)); % convert ms to sample number
 
    [taxis, faxis, rf1, rf2, pp, w01, w02, n01, n02, spln] = ...
       rtwstrfdb(envfile, T1, T2, spet', trigger, fs, spl, mdb, modtype, snd, nblocks);
   %STRF = summation of STRF/pp/T, see Monty 2001, JNeuro, in units of spk/s
-
+  
+  strf(i).unit = spk(i).unit;
+  strf(i).chan = spk(i).chan;
 
    if ( binaural )
 
-%       strf(i).exp = spk(i).exp;
-%       strf(i).site = spk(i).site;
-      strf(i).chan = spk(i).chan;
+
 %       strf(i).model = spk(i).model;
 %       strf(i).stim = spk(i).stim;
 %       strf(i).atten = spk(i).atten;
@@ -129,8 +129,6 @@ for i = 1:length(spk)
 %       strf.strf(i).fs = fs;
 
    else  % it's monaural data
-      strf(i).chan = spk(i).chan;
-
       if isfield(spk, 'position')
           strf(i).position = spk(i).position;
       end

@@ -22,7 +22,6 @@ for ii = 1:length(strf)
     strf(ii).p = p;
     strf(ii).strfcorr = strfcorr;
     strf(ii).nstrfcorr = nstrfcorr;
-    
 
 end
 

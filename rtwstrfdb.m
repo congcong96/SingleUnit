@@ -172,9 +172,9 @@ if strcmp(ModType,'dB')
 		%Updating Trigger Counter
 		TrigCount=TrigCount+1;
 % 		clc
-      if ( ~mod(TrigCount, 100) )
-   		disp(['Block Number ' num2str(TrigCount) ' of ' num2str(NTrig)])
-      end 
+%       if ( ~mod(TrigCount, 100) )
+%    		disp(['Block Number ' num2str(TrigCount) ' of ' num2str(NTrig)])
+%       end 
 
 % 		%Sending To Display - Updates every NBlocks
 		if TrigCount/NBlocks==round(TrigCount/NBlocks)

@@ -12,19 +12,17 @@ function [sig_z, sig_p, RI, z, p, strfcorr, nstrfcorr] = calc_strf_RI(stimulus, 
 %             default = 1000
 %   
 % Outputs:
-%   sig_z: significance of the reliability index of the unit based on
-%   z-score (according to p 0.01, two-tail)
-%   sig_p: significance based on p-value (0.95, 0.99, 0.999)
 %   RI: reliability index of the unit
 %   strfcorr: (RI_iter * 1) distribution of correlation of the neuron
-%   nstrfcorr: (RI_iter * 1) null distribution of correlation
+%   nstrfcorr: (RI_iter * nshift_blocks) null distribution of correlation
 %
-% Written by Congcong, 05/06/2021.
+% Written by Congcong, 01/19/2022.
     
 
 % RELIABILITY INDEX OF STRF
 p = inputParser;
 addParameter(p,'niter', 1000);
+addParameter(p,'nblocks', 10);
 addParameter(p,'plot_flag', 0);
 addParameter(p,'figure_folder', 0);
 addParameter(p,'figure_name', 0);
@@ -58,13 +56,12 @@ RI = mean(strfcorr);
 strfcorr = gather(strfcorr);
 RI = gather(RI);
 % null distribution of flipped spiketrain
-nblocks = 10;
 nsample = floor(size(stimulus, 2)/(nblocks + 1));
 nstrfcorr = zeros(nblocks, niter);
 for ii = 1:nblocks
-    stimulus_shift = circshift(stimulus, nsample * ii);
-    sta1 = quick_calc_sta(stimulus_shift, spktrain1, 'chunks', 1, 'nlags', nlags, 'suppressprint', 1);
-    sta2 = quick_calc_sta(stimulus_shift, spktrain2, 'chunks', 1, 'nlags', nlags, 'suppressprint', 1);
+    stimulus_shift = circshift(stimulus, nsample * ii, 2);
+    sta1 = quick_calc_sta(stimulus_shift, spktrain1, 'nlags', nlags, 'nleads', 0, 'suppressprint', 1, 'GPU', 1);
+    sta2 = quick_calc_sta(stimulus_shift, spktrain2, 'nlags', nlags, 'nleads', 0, 'suppressprint', 1, 'GPU', 1);
     nstrfcorr(ii,:) = gather(diag(corr(sta1', sta2')));
 end
 

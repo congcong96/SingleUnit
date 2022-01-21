@@ -1,3 +1,4 @@
-function parsave(fname, waveform_STRF_CRH)
-save(fname, 'waveform_STRF_CRH', '-append')
+function parsave(filename, vname, v)
+eval([vname '= v;'])
+save(filename, vname, '-append')
 end

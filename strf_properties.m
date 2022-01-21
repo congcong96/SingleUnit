@@ -1,10 +1,12 @@
-function strf = strf_properties(strf, dur, flag_plot, varargin)
+function strf = strf_properties(strf, dur,varargin)
 
 p = inputParser;
+addParameter(p,'plot_flag', 0);
 addParameter(p,'save_plot', 0);
 addParameter(p,'figure_folder', 0);
 addParameter(p,'figure_name_base', 0);
 parse(p,varargin{:});
+plot_flag = p.Results.plot_flag;
 save_plot = p.Results.save_plot;
 figure_folder = p.Results.figure_folder;
 figure_name_base = p.Results.figure_name_base;
@@ -32,7 +34,7 @@ for ii = 1:length(strf)
     strf(ii).sig = sig;
     strf(ii).ex = ex;
     
-    if flag_plot
+    if plot_flag
         if any(sig)
             plot_strf(rf, n0, pval, mdb, dur, taxis, faxis, ...
                 'timelabels', 0:25:100, 'freqlabels', 2.^(-2:4), ...
