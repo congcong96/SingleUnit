@@ -24,7 +24,7 @@ sMTF = sMTF/Max_sMTFu;
 sMTFu = sMTFu/Max_sMTFu;
 if flag_plot
     % plot RTF
-    figure;
+    figure('visible', 'off');
     figuresetup2savepdf(30, 10)
     cmap = cschemes('spectral', 21);
     Max = max(max(mtfhist));

@@ -97,15 +97,19 @@ fs = strf(1).fs;
 t = strf(1).taxis;
 
 for i = 1:length(strf)
-   % Define some initial parameters
+    % Define some initial parameters
     n0 = strf(i).n0contra;
     w0 = strf(i).w0contra;
-   x = log2(strf(i).faxis ./ min(strf(i).faxis));
-
-   % Get the significant strf
-   [rfsig]  = significant_strf(strf(i).rfcontra, p, n0, mdb, dur);
-   %rfsig = rfsig(:,51:151);
-   rfsig = smoothmat(rfsig, 3);
+    x = log2(strf(i).faxis ./ min(strf(i).faxis));
+    
+    % Get the significant strf
+    %    [rfsig]  = significant_strf(strf(i).rfcontra, p, n0, mdb, dur);
+    %    if sum(sum(rfsig)) == 0
+    %        continue
+    %    end
+    rfsig = strf(i).rfcontra;
+    %rfsig = rfsig(:,51:151);
+    rfsig = smoothmat(rfsig, 3);
    % take the singular value decomposition to decompose
    % the strf into separable subunits
    [u,s,v] = svd(rfsig);

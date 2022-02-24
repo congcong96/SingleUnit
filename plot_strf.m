@@ -26,7 +26,11 @@ properties =  p.Results.properties;
 fticks = [];
 for ii = 1:numel(freqlabels)
     freqlabel = freqlabels(ii); % frequency in kHz
-    fticks = [fticks find(faxis/1000 >= freqlabel, 1)];
+    if max(faxis) > 1e3
+        fticks = [fticks find(faxis/1000 >= freqlabel, 1)];
+    else
+        fticks = [fticks find(faxis >= freqlabel, 1)];
+    end
 end
 tticks = [];
 for ii = 1:numel(timelabels)
@@ -44,7 +48,7 @@ end
 %cboundary = max(cboundary/20, max(abs(rf(:))));
 cboundary = max(abs(rf(:)));
 imagesc(rf);
-cmap = cschemes('spectral', 21);
+cmap = cschemes('rdbu', 21);
 colormap(gca, cmap)
 
 set(gca,'ydir', 'normal');
@@ -66,7 +70,7 @@ if strcmp(contur, 'on')
     rfsigabs = abs(rfsig);
     rfsigabs(rfsigabs > 0) = 1;
     hold on
-    contour(rfsigabs, 1, 'color', 0.2*[1 1 1 ])
+    contour(rfsigabs, 1, 'color', 0.1*[1 1 1 ])
 end
 
 if sig
@@ -83,7 +87,7 @@ if sig
         close
     end
 elseif save_plot
-     
-        saveas(gcf, fullfile(figure_folder, sprintf('%s-unit%d.jpg', figure_name_base, properties.unit)))
+    
+    saveas(gcf, fullfile(figure_folder, sprintf('%s-unit%d.jpg', figure_name_base, properties.unit)))
     close
 end

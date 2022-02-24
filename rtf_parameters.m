@@ -483,7 +483,7 @@ RTFparam.Max_sMTFu12 = Max_sMTFu12;
 
 if flag_plot
     % plot RTF
-    figure;
+    figure('visible', 'off');
     figuresetup2savepdf(30, 10)
     RTF4plot = RTF./sum(sum(RTF));
     cmap = cschemes('spectral', 21);

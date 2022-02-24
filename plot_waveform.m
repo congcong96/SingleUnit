@@ -22,10 +22,10 @@ plot(taxis, waveform.average, c2, 'linewidth', 3)
 xlim([taxis(1) taxis(end)])
 y = [min(waveform.average), max(waveform.average)];
 
-plot(t_trough*[1 1], y, 'k--', 'LineWidth', 2)
-plot(t_peak*[1 1], y, 'k--', 'LineWidth', 2)
-arrow([(t_peak+t_trough)/2, y(1)], [t_trough, y(1)])
-arrow([(t_peak+t_trough)/2, y(1)], [t_peak, y(1)])
-text((t_peak+t_trough)/2- tpd*.25, y(1)-10, sprintf('%.2fms', tpd), 'fontsize', 13)
+% plot(t_trough*[1 1], y, 'k--', 'LineWidth', 2)
+% plot(t_peak*[1 1], y, 'k--', 'LineWidth', 2)
+% arrow([(t_peak+t_trough)/2, y(1)], [t_trough, y(1)])
+% arrow([(t_peak+t_trough)/2, y(1)], [t_peak, y(1)])
+% text((t_peak+t_trough)/2- tpd*.25, y(1)-10, sprintf('%.2fms', tpd), 'fontsize', 13)
 
 box off
